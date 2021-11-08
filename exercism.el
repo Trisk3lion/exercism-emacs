@@ -135,7 +135,7 @@ Optionally add HEADERS and other ARGS."
 ;;; If `exercism-auto-enable' is true, enable `exercism-mode' when
 ;;; current file's path matches `exercism-dir'
 (when exercism-auto-enable
-(add-to-list 'auto-mode-alist '(exercism-dir . exercism-mode)))
+  (add-to-list 'auto-mode-alist '(exercism-dir . exercism-mode)))
 
 
 ;; (defmacro namespace (ns-name symbols-to-namespace &rest body)
@@ -149,8 +149,9 @@ Optionally add HEADERS and other ARGS."
 "Find the exercism CLI path and chomp the trailing newline.")
 
 (defvar *exercism-config*
-  (exercism-get-config exercism-config-file)
-  "The exercism configuration file data.")
+  (when exercism-config-file
+    (exercism-get-config exercism-config-file)
+    "The exercism configuration file data."))
 
 (defvar *exercism-fetch-endpoint*
   (url-encode-url (concat
@@ -205,7 +206,6 @@ Write more docstring."
                                   :solution (buffer-substring-no-properties
                                              (point-min) (point-max))))))
     ))
-
 
 ;;;;; HOPEFULLY DEPRECATED SOON - CLI-WRAPPERS
 
