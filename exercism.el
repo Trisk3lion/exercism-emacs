@@ -119,15 +119,15 @@ Optionally add HEADERS and other ARGS."
                 (json-read)))
     :headers headers
     :success
-    (function* (lambda (&key data &allow-other-keys)
-                 (when data
-                   (with-current-buffer (get-buffer-create "*exercism-data*")
-                     (erase-buffer)
-                     (insert data)
-                     (pop-to-buffer (current-buffer))))))
+    (cl-function (lambda (&key data &allow-other-keys)
+                   (when data
+                     (with-current-buffer (get-buffer-create "*exercism-data*")
+                       (erase-buffer)
+                       (insert data)
+                       (pop-to-buffer (current-buffer))))))
     :error
-    (function* (lambda (&key error-thrown &allow-other-keys&rest _)
-                 (message "Got error: %S" error-thrown)))
+    (cl-function (lambda (&key error-thrown &allow-other-keys&rest _)
+                   (message "Got error: %S" error-thrown)))
     :complete (lambda (&rest _) (message "Finished!"))
     :status-code '((400 . (lambda (&rest _) (message "Got 400.")))
                    (401 . (lambda (&rest _) (message "Got 401."))))))
@@ -199,13 +199,13 @@ Write more docstring."
   (let ((exercism-dir (plist-get *exercism-config* :dir)))
     (dired exercism-dir)))
 
-(defun exercism-submit-fn ()
-  "Submit the exercism exercise in the current buffer."
-  (interactive)
-  (let ((data (json-encode '(:key exercism-api-key
-                                  :solution (buffer-substring-no-properties
-                                             (point-min) (point-max))))))
-    ))
+;; (defun exercism-submit-fn ()
+;;   "Submit the exercism exercise in the current buffer."
+;;   (interactive)
+;;   (let ((data (json-encode '(:key exercism-api-key
+;;                                   :solution (buffer-substring-no-properties
+;;                                              (point-min) (point-max))))))
+;;     ))
 
 ;;;;; HOPEFULLY DEPRECATED SOON - CLI-WRAPPERS
 
@@ -213,11 +213,11 @@ Write more docstring."
 (defun exercism-submit ()
   "Submit the exercism exercise in the current buffer."
   (interactive)
-  (block nil
+  (cl-block nil
     (when (and (buffer-modified-p)
                (not (y-or-n-p "Buffer modified since last save.  Submit anyway? ")))
       (message "Exercism submission aborted.")
-      (return))
+      (cl-return))
     (let ((exercise buffer-file-name))
       (message "Result: %s" (execute-command "submit" exercise)))))
 
