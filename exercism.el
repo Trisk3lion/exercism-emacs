@@ -58,30 +58,23 @@
   :type 'string
   :tag "Exercism API key")
 
-(defcustom exercism-api-url "http://exercism.io"
+(defcustom exercism-api-url "https://exercism.org"
   "The Exercism API host URL"
   :group 'exercism
   :type 'string
   :tag "Exercism API host URL")
 
-(defcustom exercism-x-api-url "http://x.exercism.io"
-  "Exercism \"x API\" URL"
+(defcustom exercism-dir (expand-file-name "~/exercism")
+  "Exercism working directory - defaults to `~/exercism'"
   :group 'exercism
   :type 'string
-  :tag "Exercism \"x API\" host URL")
-
-(defcustom exercism-dir (expand-file-name "~/exercism"))
-"Exercism working directory - defaults to `~/exercism'"
-:group 'exercism
-:type 'string
-:tag "Exercism working directory")
+  :tag "Exercism working directory")
 
 (defcustom exercism-mode-hook nil
   "Hook to run when switching to exercism-mode"
   :group 'exercism
   :type 'hook
-  :options '(projectile-mode
-             ))
+  :options '(projectile-mode))
 
 (defcustom exercism-auto-enable nil
   "Enable exercism-mode whenever we're in our exercism dir"
@@ -93,7 +86,7 @@
   "Custom location for exercism config file"
   :group 'exercism
   :type 'string)
-)
+
 
 ;;; Utility functions
 (defun exercism-get-config (file-path)
@@ -206,7 +199,6 @@ Write more docstring."
   (let ((exercism-dir (plist-get *exercism-config* :dir)))
     (dired exercism-dir)))
 
-;;;###autoload
 (defun exercism-submit-fn ()
   "Submit the exercism exercise in the current buffer."
   (interactive)
