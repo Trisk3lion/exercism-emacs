@@ -192,7 +192,6 @@ Write more docstring."
 
 ;;;;; Interactive User Funs
 
-;;;###autoload
 (defun exercism ()
   "Open the user's exercism directory in 'dired-mode'."
   (interactive)
