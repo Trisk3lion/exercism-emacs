@@ -70,11 +70,11 @@
   :type 'string
   :tag "Exercism \"x API\" host URL")
 
-(defcustom exercism-dir (format "%s/exercism" (getenv "HOME"))
-  "Exercism working directory - defaults to `$HOME/exercism'"
-  :group 'exercism
-  :type 'string
-  :tag "Exercism working directory")
+(defcustom exercism-dir (expand-file-name "~/exercism"))
+"Exercism working directory - defaults to `~/exercism'"
+:group 'exercism
+:type 'string
+:tag "Exercism working directory")
 
 (defcustom exercism-mode-hook nil
   "Hook to run when switching to exercism-mode"
@@ -83,7 +83,7 @@
   :options '(projectile-mode
              ))
 
-(defcustom exercism-auto-enable t
+(defcustom exercism-auto-enable nil
   "Enable exercism-mode whenever we're in our exercism dir"
   :group 'exercism
   :type 'boolean
