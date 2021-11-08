@@ -13,12 +13,13 @@
 (ert-deftest is-nil ()
   (should (eq '() nil)))
 
+(when exercism-config-file
 (ert-deftest test-exercism-get-config ()
   (let ((config (exercism-get-config exercism-config-file)))
     (should (stringp (plist-get config :api)))
     (should (stringp (plist-get config :xapi)))
     (should (stringp (plist-get config :apiKey)))
-    (should (stringp (plist-get config :dir)))))
+    (should (stringp (plist-get config :dir))))))
 
 
 (provide 'exercism-test)
